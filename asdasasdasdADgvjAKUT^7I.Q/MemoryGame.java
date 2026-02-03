@@ -5,6 +5,10 @@
  * After wathcing the memory strings appear in the buttons one at a time, the
  * player recreates the sequence from memory.
  */
+//extra credit implimented: difficulty levels and speed increase over time
+
+
+
 
 import javax.swing.JOptionPane;
 
@@ -40,6 +44,7 @@ boolean match=false;
     game.createBoard(3, true);
     int score = 0;
     int rounds = 1;
+    double time = .5; // Initial speed time
     
     // TO DO: Play the game until user wants to quit.
   while(true){
@@ -53,7 +58,7 @@ boolean match=false;
   
         // TO DO: Play one sequence with a .5 second delay. Save the player's guess. 
         // (Later, you can speed up or slow down the game.)
-        String guess = game.playSequence(temp, .5);
+        String guess = game.playSequence(temp, time); //time thingy
 
         // TO DO: If the guess is not null, determine a match
         if(guess!=null){ //only do if guess is not null
@@ -86,6 +91,7 @@ boolean match=false;
               if (game.playAgain())
               {
                 rounds++; // new rounds
+                time *= 0.9; //decrease time over time
                }
               else
               {
