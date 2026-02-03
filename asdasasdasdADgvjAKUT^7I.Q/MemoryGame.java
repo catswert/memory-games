@@ -6,31 +6,44 @@
  * player recreates the sequence from memory.
  */
 
+import javax.swing.JOptionPane;
+
 public class MemoryGame
 {
+   // Difficulty arrays
+   static String mem[] = {"a","b","c"}; //difficulty 1 (easy mode)
+   static String mem2[] = {"a","b","c","d"}; //difficulty 2 (medium mode)
+   static String mem3[] = {"a","b","c","d","e"}; //difficulty 3 (hard mode)
+   
+   public static String[] getDifficultyArray(String difficulty){ //difficulty selection logic. returns reference to array from input
+     if(difficulty.equals("Easy")){
+       return mem;
+     }
+     else if(difficulty.equals("Hard")){
+       return mem3;
+     }
+     else{ 
+       return mem2; 
+     }
+   }
+   
    public static void main(String[] args) {
 
-    // TO DO: Create the "memory strings" - an array of at least 4 single character  
-    // strings to show in the buttons, one element at a time. This is the sequence
-    // the player will have to remember.
  
-String mem[] = {"a","b","c"};
-String mem2[] = {"a","b","c","d"};
-String mem3[] = {"a","b","c","d","e"};
 boolean match=false;
 
 
-    // Create the game and gameboard. Configure a randomized board with 3 buttons.
-    // (Later, you can change options to configure more or less buttons
-    // and turn randomization on or off.))
     MemoryGameGUI game = new MemoryGameGUI();
+    String[] difficultyOptions = {"Easy", "Medium", "Hard"}; //difficulty selector
+    int choice = JOptionPane.showOptionDialog(null, "Select Difficulty:", "Difficulty", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, difficultyOptions, "Medium"); //show option dialog for difficulty selection
+    String difficulty = difficultyOptions[choice]; //set difficulty string based on user choice
     game.createBoard(3, true);
     int score = 0;
     int rounds = 1;
     
     // TO DO: Play the game until user wants to quit.
   while(true){
-   String temp[] = RandomPermutation.next(mem);
+   String temp[] = RandomPermutation.next(getDifficultyArray(difficulty)); //get random permutation of memory strings based on difficulty
    String seq = "";
    for(int i=0; i < temp.length; i++){
     seq+=temp[i];
